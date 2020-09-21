@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col-12 col-sm-12 col-md-8 col-lg-6">
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-wrench"></i>
@@ -7,7 +7,7 @@
     <div class="card-body">
       <div style="height: 150px;" class="pt-4">
         <div class="row">
-          <div class="col-lg-8 col-md-4 col-sm-12">
+          <div class="col-lg-8 col-md-6 col-sm-12">
             <div class="form-group">
               <select class="form-control" id="command" name="command">
                 <option value="nocommand" selected>Select Command</option>

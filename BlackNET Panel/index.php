@@ -60,7 +60,7 @@ $columns = [
 
           <div class="row">
             <?php include_once 'components/commands.php';?>
-            <div class="col">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-6">
               <div class="card mb-3">
                 <div class="card-header">
                   <i class="fas fa-map-marker-alt"></i>

@@ -33,8 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $client->newClient($clientdata);
 
-    @new_dir($utils->sanitize($data[0]));
-
+    if(isset($data) && !empty($data)){
+        new_dir($utils->sanitize($data[0]));
+    }
 }
 
 function getConteryCode($ipaddress)

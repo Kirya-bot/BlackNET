@@ -1,4 +1,4 @@
-﻿Imports System.Net
+Imports System.Net
 Imports System.Text
 Imports System.IO
 
@@ -53,33 +53,32 @@ Namespace HTTPSocket
                 Return ex.Message
             End Try
         End Function
-
+    
         Public Function _POST(ByVal filename As String, ByVal requstData As String)
-            Dim postData As String = requstData
-            Dim tempCookies As New CookieContainer
-            Dim encoding As New UTF8Encoding
-            Dim byteData As Byte() = encoding.GetBytes(postData)
+            Try
+                Dim s As HttpWebRequest
+                Dim enc As UTF8Encoding
+                Dim postdata As String
+                Dim postdatabytes As Byte()
+                s = HttpWebRequest.Create(Host & "/" & filename)
+                enc = New System.Text.UTF8Encoding()
+                postdata = "data=" & requstData
+                postdatabytes = enc.GetBytes(postdata)
+                s.Method = "POST"
+                s.ContentType = "application/x-www-form-urlencoded"
+                s.ContentLength = postdatabytes.Length
+                s.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
 
-            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(Host & "/" & filename), HttpWebRequest)
-            postReq.Method = "POST"
-            postReq.KeepAlive = True
-            postReq.CookieContainer = tempCookies
-            postReq.ContentType = "application/x-www-form-urlencoded"
-            postReq.UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.3) Gecko/20100401 Firefox/4.0 (.NET CLR 3.5.30729)"
-            postReq.ContentLength = byteData.Length
+                Using stream = s.GetRequestStream()
+                    stream.Write(postdatabytes, 0, postdatabytes.Length)
+                End Using
 
-            Dim postreqstream As Stream = postReq.GetRequestStream()
-            postreqstream.Write(byteData, 0, byteData.Length)
-            postreqstream.Close()
-            Dim postresponse As HttpWebResponse
+                Dim result = s.GetResponse()
 
-            postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
-            tempCookies.Add(postresponse.Cookies)
-            logincookie = tempCookies
-            Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
-
-            Dim thepage As String = postreqreader.ReadToEnd
-            Return thepage
+                Return True
+            Catch ex As WebException
+                Return False
+            End Try
         End Function
 
         Public Function Send(ByVal Command As String)

@@ -62,7 +62,7 @@ Namespace HTTPSocket
                 Dim postdatabytes As Byte()
                 s = HttpWebRequest.Create(Host & "/" & filename)
                 enc = New System.Text.UTF8Encoding()
-                postdata = "data=" & requstData
+                postdata = requstData
                 postdatabytes = enc.GetBytes(postdata)
                 s.Method = "POST"
                 s.ContentType = "application/x-www-form-urlencoded"

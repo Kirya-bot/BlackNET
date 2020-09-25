@@ -8,9 +8,7 @@ Namespace HTTPSocket
         Public Data As String
         Public Y As String = "|BN|"
         Public ID As String
-        Dim logincookie As CookieContainer
-
-
+    
         Public Function Connect()
             Try
                 _POST("connection.php", "data=" & ENB(ID & Y & Data))
